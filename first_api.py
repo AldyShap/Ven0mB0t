@@ -1,5 +1,4 @@
 import aiohttp
-from pprint import pprint
 from app.config.cosy import BASE_URL, HEADERS, FTC_SEASON
 from datetime import datetime
 
@@ -19,7 +18,6 @@ async def get_team_info(team_number: int):
 
             if "teams" not in data or not data["teams"]:
                 return "❌ Команда не найдена"
-            pprint(data)
 
             team = data["teams"][0]
 
@@ -61,7 +59,6 @@ async def get_team_events(team_number: int):
 
 async def get_matches(event_code: str):
     data = await _get(f"matches/{event_code}")
-    pprint(data)
 
     if "matches" not in data:
         raise ValueError("Матчи не найдены")
@@ -84,7 +81,6 @@ async def get_team_match_info(match, team_number):
 
 async def get_ranking(event_code: str):
     data = await _get(f"rankings/{event_code}")
-    pprint(data)
 
     if "rankings" not in data or not data['rankings']:
         raise ValueError("Rankings wasn't found")

@@ -19,7 +19,7 @@ async def cmd_first(message: Message):
 @router.message(Command('ftc'))
 async def cmd_first(message: Message):
     with open('messages/ftc.txt', 'r', encoding='utf-8') as file:
-        await message.answer(file.read(), reply_markup=key.main_menu)
+        await message.answer(file.read(), reply_markup=await key.create_buttons_with_link("fll"))
 
 @router.message(Command('values'))
 async def cmd_values(message: Message):
@@ -127,5 +127,10 @@ async def cmd_compare(message: Message, command: CommandObject):
         text += "🤝 Ничья"
 
     await message.answer(text)
+
+@router.message(Command('fll'))
+async def cmd_links(message: Message):
+    with open('messages/fll.txt', 'r', encoding='utf-8') as file:
+        await message.answer(file.read(), reply_markup=await key.create_buttons_with_link("fll"))
 
     

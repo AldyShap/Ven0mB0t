@@ -7,11 +7,14 @@ Venom FTC Bot предоставляет информационные коман
 /start — приветствие и общая информация о боте
 /first — что такое программа FIRST
 /ftc — информация о FIRST Tech Challenge
+/fll - информация о FIRST LEGO League
 /values — ключевые ценности FIRST
 /about_us - информация о команде Venom
 /help — список доступных команд
 /find_team <team number> - найти инфу про команду по номеру
 /ranking <team number> - анализ статов команды по последнему ивенту
+/compare <team1_number team2_number> - сравнить статы двух команд
+
 
 Используйте команды для навигации
 и получения необходимой информации.
