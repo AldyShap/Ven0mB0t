@@ -21,7 +21,7 @@ async def callback_values(callback: CallbackQuery):
         with open('messages/value/engeneering.txt', 'r', encoding='utf-8') as file:
             await callback.message.edit_text(file.read(), reply_markup=key.back_values)
     if index == 4:
-        with open('messages/value/vkald.txt', 'r', encoding='utf-8') as file:
+        with open('messages/value/vklad.txt', 'r', encoding='utf-8') as file:
             await callback.message.edit_text(file.read(), reply_markup=key.back_values)
     if index == 5:
         with open('messages/value/conclusion.txt', 'r', encoding='utf-8') as file:

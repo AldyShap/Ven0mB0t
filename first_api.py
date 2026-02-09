@@ -39,11 +39,7 @@ async def _get(path: str):
 
             return await response.json()
 
-async def get_latest_event(events: list):
-    return max(
-        events,
-        key=lambda e: datetime.fromisoformat(e["dateEnd"])
-    )
+
 
 async def get_team_events(team_number: int):
         data = await _get(f"events?teamNumber={team_number}")
@@ -81,30 +77,43 @@ async def get_team_match_info(match, team_number):
 
 async def get_ranking(event_code: str):
     data = await _get(f"rankings/{event_code}")
+    print(data)
 
     if "rankings" not in data or not data['rankings']:
-        raise ValueError("Rankings wasn't found")
+        return "Error: Rankings wasn't found; Возможно, рейтинг ещё не опубликован"
     
     return data['rankings']
 
 async def find_team_ranking(rankings: list, team_number: int):
+    if rankings == "Error: Rankings wasn't found; Возможно, рейтинг ещё не опубликован":
+        return None
     for r in rankings:
         if r['teamNumber'] == team_number:
             return r
     return None
 
+async def get_latest_event(events: list):
+    return max(
+        events,
+        key=lambda e: datetime.fromisoformat(e["dateEnd"])
+    )
+
 async def get_team_ranking(team_number: int):
     event = await get_team_events(team_number)
-    event_code = event["code"]
+    event_code = event["code"] 
 
     rankings = await get_ranking(event_code)
+
+    if isinstance(rankings, str):
+        return rankings
+
     team_rank = await find_team_ranking(rankings, team_number)
 
     if not team_rank:
         return "❌ Команда не найдена в рейтинге ивента"
 
     return (
-        f"📍 Последний Ивент: {event['name']} ({event['code']})\n"
+        f"📍 Последний Ивент: {event['name']} ({event_code})\n"
         f"🏆 Ranking команды {team_rank['teamNumber']} ({team_rank['teamName']})\n\n"
         f"🥇 Место: {team_rank['rank']}\n"
         f"🎮 Матчи: {team_rank['matchesPlayed']}\n"
@@ -114,6 +123,7 @@ async def get_team_ranking(team_number: int):
         f"🚫 DQ: {team_rank['dq']}\n"
         f"📊 Avg Score: {team_rank.get('sortOrder2', '—')}"
     )
+
 
 async def get_team_ranking_compare(team_number: int):
     event = await get_team_events(team_number)

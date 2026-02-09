@@ -19,7 +19,7 @@ async def cmd_first(message: Message):
 @router.message(Command('ftc'))
 async def cmd_first(message: Message):
     with open('messages/ftc.txt', 'r', encoding='utf-8') as file:
-        await message.answer(file.read(), reply_markup=await key.create_buttons_with_link("fll"))
+        await message.answer(file.read(), reply_markup=key.ftc_link)
 
 @router.message(Command('values'))
 async def cmd_values(message: Message):
@@ -55,7 +55,11 @@ async def cmd_first(message: Message, command: CommandObject):
         return
     
     msg = await message.answer("🔍 Ищу команду...")
-    text = await api_parsing.get_team_info(team_number)
+    try:
+        text = await api_parsing.get_team_info(team_number)
+    except Exception as e:
+        await msg.edit_text(e)
+
     await msg.edit_text(text)
 
 @router.message(Command('ranking'))
@@ -70,11 +74,14 @@ async def cmd_ranking(message: Message, command: CommandObject):
         await message.answer("Номер команды должен быть числом")
         return
     
+    msg = await message.answer("🔍 Ищу команду...")
+    
     try:
         text = await api_parsing.get_team_ranking(team_number)
-        await message.answer(text)
+        print(text)
+        await msg.edit_text(text)
     except Exception as e:
-        await message.answer(f"Error: {e}; Возможно, рейтинг ещё не опубликован")
+        await msg.edit_text(f"Error: {e}; Возможно, рейтинг ещё не опубликован")
         return
 
 @router.message(Command('compare'))
@@ -93,17 +100,21 @@ async def cmd_compare(message: Message, command: CommandObject):
     except ValueError:
         await message.answer("Номера команд должны быть числами")
         return
+    
+    msg = await message.answer("🔍 Ищу команду...")
+
     try:
         t1 = await api_parsing.get_team_ranking_compare(first_team)
         t2 = await api_parsing.get_team_ranking_compare(second_team)
     except Exception as e:
-        await message.answer(f"Error: {e}; Возможно, рейтинг ещё не опубликован")
+        await msg.edit_text(f"Error: {e}; Возможно, рейтинг ещё не опубликован")
         return
 
     if not t1 or not t2:
-        await message.answer("❌ Не удалось получить данные по одной из команд")
+        await msg.edit_text("❌ Не удалось получить данные по одной из команд")
         return
     
+    msg = await message.edit_text("🔍 Думаю...")
     s1, s2 = await api_parsing.compare_stats(t1, t2)
 
     text = (
@@ -126,11 +137,11 @@ async def cmd_compare(message: Message, command: CommandObject):
     else:
         text += "🤝 Ничья"
 
-    await message.answer(text)
+    await msg.edit_text(text)
 
 @router.message(Command('fll'))
 async def cmd_links(message: Message):
     with open('messages/fll.txt', 'r', encoding='utf-8') as file:
-        await message.answer(file.read(), reply_markup=await key.create_buttons_with_link("fll"))
+        await message.answer(file.read(), reply_markup=key.fll_link)
 
     

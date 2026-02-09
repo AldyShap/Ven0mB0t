@@ -15,9 +15,13 @@ BASE_URL ="https://ftc-api.firstinspires.org/v2.0"
 auth_str = f"{USERNAME}:{API_KEY}"
 encoded = base64.b64encode(auth_str.encode()).decode()
 
+
 HEADERS = {
     "Authorization": f"Basic {encoded}",
     "Accept": "application/json"
 }
 
 FTC_SEASON = 2025
+
+if __name__ == "__main__":
+    print(encoded)
