@@ -46,7 +46,7 @@
 
 2. Клонировать репозиторий:
 ```
-git clone https://github.com/yourusername/venom-ftc-bot.git
+git clone https://github.com/yourusername/VenomFtcBot.git
 ```
 
 3. Установить зависимости:
@@ -55,9 +55,13 @@ pip install -r requirements.txt
 ```
 
 4. Создать .env файл:
-регистрируемся на сайте:
 ```
-https://ftc-events.firstinspires.org
+python -m venv .venv
+```
+
+5. регистрируемся на сайте:
+```
+https://ftc-events.firstinspires.org/services/API/register
 ```
 
 получаем: 
@@ -66,7 +70,7 @@ FTC_USER_NAME=ваш_логин
 FTC_TOKEN=ваш_api_ключ
 ```
 
-5. Запустить бота:
+6. Запустить бота:
 
 ```
 python bot.py
