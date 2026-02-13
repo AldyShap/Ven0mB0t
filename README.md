@@ -106,7 +106,7 @@ python main.py
 - Команда Venom: 
 ```
 team_contacts = {
-    'Instagram': 'venom_firstkz',
+    'Instagram': 'https://www.instagram.com/venom_firstkz?igsh=MTh4ZWF3eGJtZ290',
     'Telegram': 'https://t.me/venomteam24783',
     'Website': None
 }
