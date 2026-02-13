@@ -103,5 +103,13 @@ python main.py
 
 # 📬 Контакты
 
-- Команда Venom: [Instagram / Telegram / сайт команды]
+- Команда Venom: 
+```
+team_contacts = {
+    'Instagram': 'venom_firstkz',
+    'Telegram': 'https://t.me/venomteam24783',
+    'Website': None
+}
+```
+
 - GitHub: создавай issues, предлагай фичи, фикс баги
