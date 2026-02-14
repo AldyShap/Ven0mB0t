@@ -22,6 +22,3 @@ HEADERS = {
 }
 
 FTC_SEASON = 2025
-
-if __name__ == "__main__":
-    print(encoded)

@@ -61,7 +61,6 @@ async def get_matches(event_code: str):
 
     return data["matches"]
 
-# -------------------Helper method---------------------
 async def get_team_match_info(match, team_number):
     for t in match['teams']:
         if t.get("teamNumber") == team_number:
